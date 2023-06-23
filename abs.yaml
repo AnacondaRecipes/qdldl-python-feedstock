@@ -1,5 +1,5 @@
 upload_channels:
-  - ak40_test
+  - ak_test
 channels:
-  - ak40_test
+  - ak_test
 upload_without_merge: True
