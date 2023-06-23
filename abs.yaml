@@ -1,0 +1,5 @@
+upload_channels:
+  - ak40_test
+channels:
+  - ak40_test
+upload_without_merge: True
