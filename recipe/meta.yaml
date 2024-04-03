@@ -1,5 +1,5 @@
 {% set name = "qdldl-python" %}
-{% set version = "0.1.7" %}
+{% set version = "0.1.7.post0" %}
 {% set pypiname = "qdldl" %}
 
 package:
@@ -8,7 +8,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ pypiname[0] }}/{{ pypiname }}/{{ pypiname }}-{{ version }}.tar.gz
-  sha256: 6c86639d11e301e78af2cce885249a286f675cce96d0e6d60f5b14f859d0f10e
+  sha256: f346a114c8342ee6d4dbd6471eef314199fb268d3bf7b95885ca351fde2b023f
   patches:
     - patches/0001-use-Ninja-and-add_CMAKE_INSTALL_PREFIX.patch
     - patches/0002-build-against-external-libqdldl.patch
@@ -16,7 +16,7 @@ source:
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . -vvv --no-deps --no-build-isolation
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   build:
@@ -31,9 +31,10 @@ requirements:
     - pip
     - setuptools
     - wheel
-    - libqdldl {{ version }}
+    - libqdldl 0.1.7
     - numpy {{ numpy  }}
-    - pybind11 2.10.1
+    - pybind11 2.12.0
+    - pybind11-abi
   run:
     - python
     - numpy >=1.7
