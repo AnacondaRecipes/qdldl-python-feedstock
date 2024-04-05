@@ -33,6 +33,7 @@ requirements:
     - pip
     - setuptools
     - wheel
+    # unvendored libqdldl - version has to match upstream pinned submodule
     - libqdldl 0.1.7
     - numpy {{ numpy  }}
     - pybind11 2.12.0
