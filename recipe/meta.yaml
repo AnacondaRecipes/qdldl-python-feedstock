@@ -1,5 +1,5 @@
 {% set name = "qdldl-python" %}
-{% set version = "0.1.7.post5" %}
+{% set version = "0.1.9.post1" %}
 {% set pypiname = "qdldl" %}
 
 package:
@@ -7,8 +7,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ pypiname[0] }}/{{ pypiname }}/{{ pypiname }}-{{ version }}.tar.gz
-  sha256: 0b1399e1c49b5bed5aac8fd63ef08ab708d340c37fb426fe00128bc1f36b286e
+  url: https://pypi.org/packages/source/{{ pypiname[0] }}/{{ pypiname }}/{{ pypiname }}-{{ version }}.tar.gz
+  sha256: da2016d541c26cefc79bca4d8b5bebfa00f35db19704abb20efbd1c08df3b4c7
   patches:
     - patches/0001-use-Ninja-everywhere.patch
     - patches/0002-build-against-conda-forge-s-libqdldl.patch
@@ -47,9 +47,9 @@ test:
     - pip
   imports:
     - qdldl
-  source_files:     
-    - tests/        
-  commands:       
+  source_files:
+    - tests/
+  commands:
     - pip check
     - pytest tests
 
