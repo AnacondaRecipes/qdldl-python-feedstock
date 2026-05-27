@@ -35,6 +35,7 @@ requirements:
     - libqdldl {{ libqdldl }}
     - numpy {{ numpy  }}
     - pybind11
+    - pybind11-abi
   run:
     - python
     - numpy >=1.7
