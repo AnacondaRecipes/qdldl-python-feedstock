@@ -1,19 +1,18 @@
 {% set name = "qdldl-python" %}
-{% set version = "0.1.7.post5" %}
-{% set pypiname = "qdldl" %}
+{% set libqdldl_version = "" %}
+{% set version = "0.1.9.post1" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ pypiname[0] }}/{{ pypiname }}/{{ pypiname }}-{{ version }}.tar.gz
-  sha256: 0b1399e1c49b5bed5aac8fd63ef08ab708d340c37fb426fe00128bc1f36b286e
+  url: https://github.com/osqp/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: 6f04bed33f6369610e35b4ca73fdb860dbb7e1b6b67eb678fc09a6d581d630fc
   patches:
-    - patches/0001-use-Ninja-everywhere.patch
-    - patches/0002-build-against-conda-forge-s-libqdldl.patch
-    - patches/0003-build-qdldlamd-as-shared-lib-and-install-it.patch
-    - patches/0004-Do-not-pass-CMAKE_GENERATOR-as-variable.patch
+    - patches/0001-build-against-conda-forge-s-libqdldl.patch
+    - patches/0002-build-qdldlamd-as-shared-lib-and-install-it.patch
+    - patches/0003-Do-not-pass-CMAKE_GENERATOR-as-variable.patch
 
 build:
   number: 0
@@ -21,35 +20,34 @@ build:
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
-    - {{ stdlib('c') }}
     - cmake
-    - ninja
+    - ninja-base
   host:
-    - python
     - pip
-    - setuptools
+    - python
     - wheel
+    - setuptools >=49.5.0
     # unvendored libqdldl - version has to match upstream pinned submodule
-    - libqdldl {{ libqdldl }}
+    - libqdldl {{ libqdldl_version }}
     - numpy {{ numpy  }}
-    - pybind11
+    - pybind11 =3.0.4
   run:
     - python
     - numpy >=1.7
-    - {{ pin_compatible('numpy') }}
     - scipy >=0.13.2
 
 test:
+  source_files:
+    - tests
   requires:
     - pytest
     - pip
   imports:
     - qdldl
-  source_files:     
-    - tests/        
-  commands:       
+  commands:
     - pip check
     - pytest tests
 
