@@ -1,5 +1,6 @@
 {% set name = "qdldl-python" %}
-{% set libqdldl_version = "" %}
+# Versions must be the same for the libqdldl and qdldl-python
+{% set libqdldl_version = "0.1.9" %}
 {% set version = "0.1.9.post1" %}
 
 package:
@@ -42,14 +43,17 @@ requirements:
 test:
   source_files:
     - tests
-  requires:
-    - pytest
-    - pip
   imports:
     - qdldl
   commands:
     - pip check
-    - pytest tests
+    - test -f ${PREFIX}/lib/libqdldlamd${SHLIB_EXT}  # [unix]
+    - if not exist %PREFIX%\\Library\\bin\\qdldlamd.dll exit 1  # [win]
+    - if not exist %PREFIX%\\Library\\lib\\qdldlamd.lib exit 1  # [win]
+    - pytest -v tests
+  requires:
+    - pytest
+    - pip
 
 about:
   home: https://github.com/osqp/qdldl-python
